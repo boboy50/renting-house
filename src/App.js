@@ -1,25 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
+//导入字体图标
+import './assets/fonts/iconfont.css'
+
+//导入组件
+import Layout  from './views/Layout'
+import Login from './views/Login'
+import NotFound from './views/NotFound'
+
+import './utils/axios'
+
+//导入路由
+import { HashRouter as Router,Route,Switch,Redirect} from 'react-router-dom'
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+        <div >
+          <Switch>
+          <Route path="/login" component={Login}></Route>
+          <Route path="/layout" component={Layout}></Route>
+          <Redirect exact from="/" to="/layout/home"></Redirect>
+          <Route component={NotFound}></Route>
+          </Switch>
+        </div>
+    </Router>
   );
 }
 
