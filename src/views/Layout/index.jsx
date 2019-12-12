@@ -21,12 +21,17 @@ export default class Layout extends Component {
         }
     }
 
+    //点击上部导航菜单 时路由发生了改变但是 底部菜单导航栏没有对应显示高亮 
+    //react 生命钩子函数 当props值发生改变时 对应的props里面的属性值也发生了改变  在这里可以给props重新赋值
    static getDerivedStateFromProps(props, state) {
-        console.log(props);
-        console.log(state);
-        return{
-            
+        if(state.selectedPath !== props.location.pathname) {
+            return{
+                selectedPath: props.location.pathname
+            }
+        } else {
+            return null
         }
+        
         
     }
     //tabs数组

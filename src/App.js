@@ -6,6 +6,7 @@ import './assets/fonts/iconfont.css'
 //导入组件
 import Layout  from './views/Layout'
 import Login from './views/Login'
+import Map from './views/Map'
 import NotFound from './views/NotFound'
 
 import './utils/axios'
@@ -19,6 +20,7 @@ function App() {
           <Switch>
           <Route path="/login" component={Login}></Route>
           <Route path="/layout" component={Layout}></Route>
+          <Route path="/map" component={Map}></Route>
           <Redirect exact from="/" to="/layout/home"></Redirect>
           <Route component={NotFound}></Route>
           </Switch>
