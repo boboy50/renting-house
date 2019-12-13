@@ -7,7 +7,9 @@ import './assets/fonts/iconfont.css'
 import Layout  from './views/Layout'
 import Login from './views/Login'
 import Map from './views/Map'
+import CityList from './views/CitList'
 import NotFound from './views/NotFound'
+
 
 import './utils/axios'
 
@@ -21,6 +23,7 @@ function App() {
           <Route path="/login" component={Login}></Route>
           <Route path="/layout" component={Layout}></Route>
           <Route path="/map" component={Map}></Route>
+          <Route path="/citList" component={CityList}></Route>
           <Redirect exact from="/" to="/layout/home"></Redirect>
           <Route component={NotFound}></Route>
           </Switch>
