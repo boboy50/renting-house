@@ -6,3 +6,5 @@ import { BASEURL } from './url'
 axios.defaults.baseURL = BASEURL
 
 Component.prototype.$axios = axios
+
+export default axios

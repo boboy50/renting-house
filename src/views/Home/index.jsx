@@ -71,7 +71,7 @@ export default class Home extends Component {
     //获取咨询数据
     getNewsData = async () => {
         const result = await this.$axios.get('/home/news?area=AREA%7C88cff55c-aaa4-e2e0')
-        console.log(result.data.body,'-----------------');
+        // console.log(result.data.body,'-----------------');
         this.setState({
             news: result.data.body
         })

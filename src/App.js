@@ -1,4 +1,8 @@
 import React from 'react';
+//全局导入虚拟化长列表样式
+import 'react-virtualized/styles.css'
+//导入全局样式
+import './App.css'
 
 //导入字体图标
 import './assets/fonts/iconfont.css'
@@ -7,7 +11,7 @@ import './assets/fonts/iconfont.css'
 import Layout  from './views/Layout'
 import Login from './views/Login'
 import Map from './views/Map'
-import CityList from './views/CitList'
+import CityList from './views/CityList'
 import NotFound from './views/NotFound'
 
 
@@ -18,7 +22,7 @@ import { HashRouter as Router,Route,Switch,Redirect} from 'react-router-dom'
 function App() {
   return (
     <Router>
-        <div >
+        <div id='app'>
           <Switch>
           <Route path="/login" component={Login}></Route>
           <Route path="/layout" component={Layout}></Route>
