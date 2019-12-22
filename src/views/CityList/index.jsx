@@ -2,11 +2,14 @@ import React, { Component } from 'react'
 
 import styles from './index.module.scss'
 
+//导入轻提示
+import { Toast } from 'antd-mobile';
+
 //导入头部通用返回组件
 import NavHeader from '../../components/NavHeader'
 
 //导入获取定位城市的方法
-import { getLocationCity } from '../../utils/city'
+import { getLocationCity, setCity } from '../../utils/city'
 
 //导入虚拟化长列表
 import { AutoSizer, List } from 'react-virtualized';
@@ -17,6 +20,8 @@ const TITLE_HEIGHT = 36
 //每一行中 每一个城市的高度
 const ROW_HEIGHT = 50
 
+//热门城市
+const HOST_CITY = ['北京', '上海', '广州', '深圳']
 export default class CityList extends Component {
     constructor() {
         super()
@@ -96,6 +101,20 @@ export default class CityList extends Component {
         }
     }
 
+    //切换城市选择
+    toggle = item => {
+        if (!HOST_CITY.includes(item.label)) {
+            Toast.info('该城市暂无房源', 2)
+            return
+        }
+        const {label,value} = item
+        //更新本地的缓存
+        setCity({label,value})
+        //通过编程式返回到首页
+        this.props.history.goBack()
+
+    }
+
     //渲染左边的每一行
     rowRenderer = ({ key, index, style }) => {
         //取出右边索引的每一个字母
@@ -107,11 +126,11 @@ export default class CityList extends Component {
         // 一定要设置 style 因为这个值可以改变top 值 让列表达到复用的效果
         return (
             <div className={styles.city} key={key} style={style}>
-                <div className={styles.title}>{this.formatLetter(letter)}</div>
+                <div className={styles.title}>{this.formatLetter(letter)} </div>
                 {
                     list.map(item => {
                         return (
-                            <div key={item.value} className={styles.name}>{item.label}</div>
+                            <div key={item.value} className={styles.name} onClick={() => this.toggle(item)}>{item.label}</div>
                         )
                     })
                 }
@@ -131,14 +150,14 @@ export default class CityList extends Component {
 
     //渲染右边的索引
     renderCityIndexList = () => {
-        const {cityIndexList,activeIndex} = this.state
+        const { cityIndexList, activeIndex } = this.state
         return (
             <div className={styles.cityIndex}>
                 {
-                    cityIndexList.map((item,index) => {
+                    cityIndexList.map((item, index) => {
                         return (
                             //给右边的索引添加点击事件 
-                            <div key={item} className={styles.cityIndexItem} onClick= {() => this.clickIndex(index)}>
+                            <div key={item} className={styles.cityIndexItem} onClick={() => this.clickIndex(index)}>
                                 <span className={index === activeIndex ? styles.indexActive : ''}>{item === 'hot' ? '热' : item.toUpperCase()}</span>
                             </div>
                         )
@@ -149,9 +168,9 @@ export default class CityList extends Component {
     }
 
     //滚动左边长列表 触发的方法
-    onRowsRendered = ({startIndex}) => {
+    onRowsRendered = ({ startIndex }) => {
         //判断 是否还处于当前字母下的城市列表
-        if(this.state.activeIndex !== startIndex ) {
+        if (this.state.activeIndex !== startIndex) {
             // console.log(startIndex);
             this.setState({
                 activeIndex: startIndex
@@ -164,7 +183,7 @@ export default class CityList extends Component {
 
     //点击右边的索引的交互方法
     clickIndex = index => {
-        this.listRef.current.scrollToRow (index) 
+        this.listRef.current.scrollToRow(index)
         //注意设置 列表滚动的对齐方式
     }
     render() {
