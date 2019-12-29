@@ -3,10 +3,11 @@ import { Flex } from 'antd-mobile'
 import styles from './index.module.scss'
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom'
+import classNames from 'classnames'
 
-function SearchHeader({ cityName, history }) {
+function SearchHeader({ cityName, history, className }) {
     return (
-        <Flex className={styles.root}>
+        <Flex className={classNames(styles.root,className)}>
             <Flex className={styles.searchLeft}>
                 <div className={styles.location} onClick={() =>{
                     history.push('/citList')
